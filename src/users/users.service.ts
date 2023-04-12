@@ -28,7 +28,14 @@ export class UsersService {
 
    async findAllUsers() {
       try {
-         const users = await this.usersModel.find();
+         const users = await this.usersModel
+         .find()
+         .populate({
+            path: 'postsId',
+            populate: {
+               path: 'comments',
+            }
+         });
          return {
             error: 1,
             data: users,
@@ -47,7 +54,7 @@ export class UsersService {
    //    return `This action updates a #${id} user`;
    // }
 
-   // remove(id: number) {
+   // deleteComment(id: string) {
    //    return `This action removes a #${id} user`;
    // }
 }
