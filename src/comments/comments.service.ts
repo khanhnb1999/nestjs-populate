@@ -66,9 +66,10 @@ export class CommentsService {
          const comments = await this.commentModel
             .findByIdAndDelete({_id: id});
          // delete commentId in filed comments array in collection Posts      
+         const { postId } = comments;
          await this.postModel
-            .findByIdAndUpdate({
-               
+            .findByIdAndUpdate(postId, {
+               $pull: {}
             })   
       return {
          error: 1,
